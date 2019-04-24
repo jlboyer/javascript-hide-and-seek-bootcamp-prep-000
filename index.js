@@ -9,46 +9,59 @@ function nestedTarget(){
 }
 
 function increaseRankBy(n){
-  n = parseInt(n);
   const lis = document.querySelectorAll('ul.ranked-list');
   for (var i = 0; i < lis.length; i++) {
-    lis[i].innerHTML = parseInt(lis[i].innerHTML) + n;
+    lis[i].innerHTML = parseInt(lis[i].innerHTML + n);
   }
 }
 
-/*
-function deepestChild(){
-  var nodesList = document.querySelectorAll('div');
-  //convert nodesList into an Array
-  var current = [];
-  var past = [];
-  for (var i = nodesList.length >>> 0; i--;){
-    current[i] = nodesList[i];
-  }
-    // define next array to push possible array elements onto while marching through current array
-  let next = [];
-  //define initial depth of 0, update with increasing depth and return max
-  let depth = 0;
-  //run while loop until reaching end of node path across breadth of Array
-  while (current !== undefined || current === 0) {
-  //  console.log(current)
-    if (Array.isArray(current)) {
-      for (let i = 0; i < current.length; i++) {
-        next.push(current[i]);
-        if (i > depth) {
-          depth = i;
-          past = current[i];
-        }
-      }
-    }
-    //after pushing any children onto next, make first element current and repeat
-    current = next.shift();
-  }
-  return past;
-} */
+
 
 function deepestChild(){
+  let nodeList = document.querySelectorAll('div');
+  let nodeArray = [...nodeList]; 
+  let currentNode = nodeArray[0];
+  let deepestNode = currentNode;
+  let depth = -1;
+  let maxDepth = 0;
+  while (currentNode !== undefined) {
+    console.log(currentNode)
+    if (currentNode.children.length > 0) {
+      depth++
+    } else if (currentNode.children.length === 0 && depth >= maxDepth) {
+      maxDepth = depth;
+      deepestNode = currentNode;
+      depth = 0;
+    }
+    currentNode = nodeArray.shift();
+  }
+  console.log("Maximum Depth: "+maxDepth)
+  return deepestNode;
+}
+
+
+  
+ /*
+ //cheap answer
+ function deepestChild(){
   var deepest = document.querySelectorAll('#grand-node div')
-  return deepest[deepest.length-1]
+  return deepest[deepest.length - 1]
  }
+ */
+ 
+ /*
+ //another variant, note children only works with node lists
+  let node = document.getElementById('grand-node')
+  let nextNode = node.children[0]
+  while (nextNode) {
+    node = nextNode
+    nextNode = node.children[0]
+  }
+  return node
+  }
+  return nodeList[]
+}
+*/
+
+
 
