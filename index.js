@@ -50,7 +50,7 @@ function deepestChild(){
  */
  
  /*
- //another variant, note children only works with node lists
+ //another variant, note children only works with node lists, this also doesn't compare different trees
   let node = document.getElementById('grand-node')
   let nextNode = node.children[0]
   while (nextNode) {
